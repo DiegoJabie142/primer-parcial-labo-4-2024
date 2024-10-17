@@ -1,0 +1,109 @@
+<body class="bg-light">
+  <div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Formulario de Alta Película</h2>
+        <p class="lead">Llene los campos con la información necesaria para cargar la película</p>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-md-12">
+          <h4 class="mb-3">Pelicula</h4>
+          <form [formGroup]="peliculaForm" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+              
+              <!-- Campos de información general de la película -->
+              <div class="col-sm-6">
+                <label for="nombrePelicula" class="form-label">Nombre de la Película</label>
+                <input type="text" class="form-control" id="nombrePelicula" formControlName="nombrePelicula" required>
+                <div *ngIf="peliculaForm.get('nombrePelicula')?.invalid && (peliculaForm.get('nombrePelicula')?.touched || peliculaForm.get('nombrePelicula')?.dirty)">
+                  <div class="invalid-feedback">
+                    Valid movie name is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <label for="tipoPelicula" class="form-label">Tipo</label>
+                <select class="form-select" id="tipoPelicula" formControlName="tipoPelicula" required>
+                  <option value="">Choose...</option>
+                  <option value="Terror">Terror</option>
+                  <option value="Comedia">Comedia</option>
+                  <option value="Amor">Amor</option>
+                  <option value="Otros">Otros</option>
+                </select>
+                <div *ngIf="peliculaForm.get('tipoPelicula')?.invalid && (peliculaForm.get('tipoPelicula')?.touched || peliculaForm.get('tipoPelicula')?.dirty)">
+                  <div class="invalid-feedback">
+                    Please select a valid type.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="fechaEstreno" class="form-label">Fecha de estreno</label>
+                <input type="date" class="form-control" id="fechaEstreno" formControlName="fechaEstreno" required>
+                <div *ngIf="peliculaForm.get('fechaEstreno')?.invalid && (peliculaForm.get('fechaEstreno')?.touched || peliculaForm.get('fechaEstreno')?.dirty)">
+                  <div class="invalid-feedback">
+                    Please enter a valid date.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="cantidadDePublico" class="form-label">Cantidad de público</label>
+                <input type="number" class="form-control" id="cantidadDePublico" formControlName="cantidadDePublico" required>
+                <div *ngIf="peliculaForm.get('cantidadDePublico')?.invalid && (peliculaForm.get('cantidadDePublico')?.touched || peliculaForm.get('cantidadDePublico')?.dirty)">
+                  <div class="invalid-feedback">
+                    Please enter the audience number (must be at least 1).
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <!-- Campo para subir la foto de la película -->
+              <div class="col-12">
+                <label for="fotoPelicula" class="form-label">Foto de la película</label>
+                <input type="file" class="form-control" id="fotoPelicula" (change)="onFileChange($event)" required>
+                <div *ngIf="peliculaForm.get('fotoPelicula')?.invalid && (peliculaForm.get('fotoPelicula')?.touched || peliculaForm.get('fotoPelicula')?.dirty)">
+                  <div class="invalid-feedback">
+                    Una foto de la película es necesaria.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Componente de selección de actores -->
+              <div class="col-md-12">
+                <h4 class="mb-3">Seleccione al protagonista</h4>
+                <!-- Escuchar el evento actorSeleccionado -->
+                <app-tabla-actores (actorSeleccionado)="cargarDatosActor($event)"></app-tabla-actores>
+              </div>
+              <!-- Campos que se rellenan con el actor seleccionado -->
+              <div class="col-sm-6">
+                <label for="documentoProtagonista" class="form-label">Documento del protagonista seleccionado</label>
+                <input type="text" class="form-control" id="documentoProtagonista" formControlName="documentoProtagonista" required>
+                <div *ngIf="peliculaForm.get('documentoProtagonista')?.invalid && (peliculaForm.get('documentoProtagonista')?.touched || peliculaForm.get('documentoProtagonista')?.dirty)">
+                  <div class="invalid-feedback">
+                    Valid document is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="documentoProtagonista" class="form-label">Nombre y apellido</label>
+                <input type="text" class="form-control" id="nombreProtagonista" formControlName="nombreProtagonista" required>
+                <div *ngIf="peliculaForm.get('nombreProtagonista')?.invalid && (peliculaForm.get('nombreProtagonista')?.touched || peliculaForm.get('nombreProtagonista')?.dirty)">
+                  <div class="invalid-feedback">
+                    Valid document is required.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Dar de alta película</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

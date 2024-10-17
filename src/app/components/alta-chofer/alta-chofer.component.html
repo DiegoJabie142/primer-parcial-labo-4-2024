@@ -1,0 +1,78 @@
+<app-nav/>
+<body class="bg-light">
+    <div class="container">
+      <main>
+        <div class="py-5 text-center">
+          <h2>Formulario de Alta Chofer</h2>
+          <p class="lead">Rellene los campos con la información del Chofer</p>
+        </div>
+  
+        <div class="row g-5">
+          <div class="col-md-5 col-lg-4 order-md-last">
+            <!-- Escuchar el evento (countrySelected) emitido por TablaPaisesComponent -->
+            <app-tabla-paises (countrySelected)="onCountrySelected($event)"></app-tabla-paises>
+          </div>
+  
+          <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Datos del Chofer</h4>
+            <form [formGroup]="choferForm" (ngSubmit)="guardarChofer()" class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-sm-12">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+                  <div *ngIf="choferForm.get('nombre')?.invalid && choferForm.get('nombre')?.touched" class="invalid-feedback">
+                    Valid first name is required.
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <label for="documento" class="form-label">Número de documento</label>
+                  <input type="number" class="form-control" id="documento" formControlName="documento" placeholder="Ejemplo: 42598325" required>
+                  <div *ngIf="choferForm.get('documento')?.invalid && choferForm.get('documento')?.touched" class="invalid-feedback">
+                    Por favor indicar un número de documento válido.
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <label for="edad" class="form-label">Edad</label>
+                  <input type="number" class="form-control" id="edad" formControlName="edad" placeholder="Ejemplo: 24" required>
+                  <div *ngIf="choferForm.get('edad')?.invalid && choferForm.get('edad')?.touched" class="invalid-feedback">
+                    Por favor indicar una edad válida.
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <label for="licencia" class="form-label">Número de licencia</label>
+                  <input type="number" class="form-control" id="licencia" formControlName="licencia" placeholder="Ejemplo: 42598325" required>
+                  <div *ngIf="choferForm.get('licencia')?.invalid && choferForm.get('licencia')?.touched" class="invalid-feedback">
+                    Por favor indicar un número de documento válido.
+                  </div>
+                </div>
+
+                <!-- Checkbox para Licencia Profesional -->
+                <div class="col-12 form-check">
+                  <input class="form-check-input" type="checkbox" id="licenciaProfesional" formControlName="licenciaProfesional">
+                  <label class="form-check-label" for="licenciaProfesional">
+                    Licencia Profesional
+                  </label>
+                </div>
+  
+                <div class="col-12">
+                  <label for="pais" class="form-label">País</label>
+                  <input type="text" class="form-control" id="pais" formControlName="pais" placeholder="Seleccionar un país" required readonly>
+                  <div *ngIf="choferForm.get('pais')?.invalid && choferForm.get('pais')?.touched" class="invalid-feedback">
+                    Por favor seleccionar un país válido.
+                  </div>
+                </div>
+              </div>
+  
+              <hr class="my-4">
+  
+              <!-- Botón para enviar el formulario -->
+              <button class="w-100 btn btn-primary btn-lg" type="submit">Dar de alta al chofer</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>

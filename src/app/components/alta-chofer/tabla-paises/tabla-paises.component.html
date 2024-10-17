@@ -1,0 +1,16 @@
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+  <span class="text-primary">Lista de países</span>
+  <span class="badge bg-primary rounded-pill">{{ southAmericanCountries.length }}</span>
+</h4>
+
+<ul class="list-group mb-3">
+  <li *ngFor="let country of southAmericanCountries" 
+      class="list-group-item d-flex justify-content-between lh-sm"
+      (click)="onCountryClick(country.name)">
+    <div class="d-flex align-items-center">
+      <img [src]="country.flag" alt="{{ country.name }} flag" style="width: 40px; height: 30px; margin-right: 10px;">
+      <h6 class="my-0">{{ country.name }}</h6>
+    </div>
+    <small class="text-muted">South American Country</small>
+  </li>
+</ul>

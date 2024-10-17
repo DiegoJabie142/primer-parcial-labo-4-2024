@@ -1,0 +1,52 @@
+<app-nav/>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h5 class="card-title text-center mb-5 fw-light fs-5">Log in</h5>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+              <label for="floatingInput">Email address</label>
+              <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                El email es obligatorio y debe ser válido.
+              </div>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+              <label for="floatingPassword">Password</label>
+              <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                La contraseña es obligatoria y debe tener al menos 6 caracteres.
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" [disabled]="loginForm.invalid">Log in</button>
+            </div>
+          </form>
+
+          <hr class="my-4">
+          <div class="d-grid mb-2">
+            <a href="/Register" class="btn btn-google btn-login text-uppercase fw-bold">
+              <i class="fab fa-google me-2"></i> Register
+            </a>
+          </div>
+          <hr class="my-4">
+          <div class="d-grid mb-2">
+            <a  class="btn btn-google btn-login text-uppercase fw-bold" (click)="llenarInformacionEmpleado()">
+              <i class="fab fa-google me-2"></i> Empleado
+            </a>
+          </div>
+          <div class="d-grid mb-2">
+            <a class="btn btn-google btn-login text-uppercase fw-bold" (click)="llenarInformacionAdmin()">
+              <i class="fab fa-google me-2"></i> Admin
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

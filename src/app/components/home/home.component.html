@@ -1,0 +1,13 @@
+<app-nav/>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="width: 18rem;" *ngIf="userData">
+      <img class="card-img-top" [src]="userData.avatar_url" alt="Profile image">
+      <div class="card-body">
+        <h5 class="card-title">{{ userData.name }}</h5>
+        <p class="card-text">{{ userData.bio }}</p>
+        <a [href]="userData.html_url" class="btn btn-primary" target="_blank">Go to Profile</a>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="onLogout()">Cerrar sesión</button>
