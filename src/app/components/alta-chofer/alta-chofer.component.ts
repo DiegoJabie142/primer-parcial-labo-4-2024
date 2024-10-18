@@ -4,6 +4,8 @@ import { FirestoreService } from '../../services/firestore.service';
 import { NgFor, NgIf } from '@angular/common';
 import { TablaPaisesComponent } from './tabla-paises/tabla-paises.component';
 import { NavComponent } from "../../shared/nav/nav.component";
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alta-chofer',
@@ -18,7 +20,7 @@ export class AltaChoferComponent {
   
  selectedCountry: string = ''; // Para almacenar el país seleccionado
 
- constructor(private fb: FormBuilder, private firestoreService:FirestoreService) {}
+ constructor(private fb: FormBuilder, private firestoreService:FirestoreService, private router:Router, private snackBar: MatSnackBar) {}
 
  ngOnInit(): void {
    // Inicializar el formulario
@@ -35,7 +37,6 @@ export class AltaChoferComponent {
 // Método que se ejecuta cuando se selecciona un país
 onCountrySelected(country: string) {
   this.selectedCountry = country;
-  
   this.choferForm.patchValue({ pais: country }); // Actualiza el país en el formulario
   
 }
@@ -49,6 +50,16 @@ onCountrySelected(country: string) {
     this.firestoreService.guardarChofer(choferData);
   } else {
     console.log('Formulario inválido');
+    }
   }
-}
+
+  onLogout() {
+    this.firestoreService.logout().then(() => {
+      console.log('Sesión cerrada exitosamente.');
+      // Redirigir a la página de login
+      this.router.navigate(['/Login']);
+    }).catch((error) => {
+      console.error('Error al cerrar sesión:', error);
+    });
+  } 
 }

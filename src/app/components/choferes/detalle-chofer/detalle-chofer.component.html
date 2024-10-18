@@ -1,0 +1,14 @@
+<div class="card" style="width: 18rem;" *ngIf="chofer">
+    <div class="card-body">
+      <h5 class="card-title">{{ chofer.nombre }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Documento: {{ chofer.documento }}</li>
+      <li class="list-group-item">Edad: {{ chofer.edad }}</li>
+      <li class="list-group-item">Pais: {{ chofer.pais }}</li>
+      <li class="list-group-item">Licencia: {{ chofer.licencia }}</li>
+      <li class="list-group-item">Licencia profesional: {{ chofer.licenciaProfesional }}</li>
+    </ul>
+  </div>
+  
+  

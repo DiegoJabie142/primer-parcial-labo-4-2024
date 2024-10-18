@@ -1,0 +1,6 @@
+<div *ngIf="countryData">
+    <div class="card">
+      <h2>{{ countryData.name.common }}</h2>
+      <img [src]="countryData.flags.svg" alt="Bandera de {{ countryData.name.common }}" />
+    </div>
+  </div>

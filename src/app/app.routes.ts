@@ -45,6 +45,12 @@ export const routes: Routes = [
     {
         path:'home', loadComponent:()=>
         import('./components/home/home.component').then((m)=>m.HomeComponent),
-    }
+    },
+    {
+        path:'Choferes', loadComponent:()=>
+        import('./components/choferes/choferes.component').then((m)=>m.ChoferesComponent),
+        canActivate: [authGuard]
+    },
+
 
 ];

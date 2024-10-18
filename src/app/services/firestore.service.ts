@@ -51,6 +51,11 @@ export class FirestoreService {
     return collectionData(actoresCollection); // Obtener los datos de la colección
   }
 
+  traerChoferes(): Observable<any[]> {
+    const choferesCollection = collection(this.firestore, 'choferes'); // Acceder a la colección 'choferes'
+    return collectionData(choferesCollection); // Obtener los datos de la colección
+  }
+
   traerPeliculas(): Observable<any[]> {
     const actoresCollection = collection(this.firestore, 'movies'); // Acceder a la colección 'movies'
     return collectionData(actoresCollection); // Obtener los datos de la colección
