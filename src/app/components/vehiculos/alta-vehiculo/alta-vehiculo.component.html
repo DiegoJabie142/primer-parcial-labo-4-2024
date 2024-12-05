@@ -1,0 +1,57 @@
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Alta de Vehículo</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="vehiculoForm" (ngSubmit)="guardarVehiculo()" class="needs-validation" novalidate>
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ejemplo: Avión" required>
+            <div *ngIf="vehiculoForm.get('nombre')?.invalid && vehiculoForm.get('nombre')?.touched" class="invalid-feedback">
+              Nombre válido requerido (solo letras).
+            </div>
+          </div>
+  
+          <!-- Campo Tipo -->
+          <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <select id="tipo" class="form-select" formControlName="tipo" required>
+              <option value="" disabled>Seleccione un tipo</option>
+              <option value="terrestre">terrestre</option>
+              <option value="aéreo">aéreo</option>
+              <option value="marítimo">marítimo</option>
+            </select>
+            <div *ngIf="vehiculoForm.get('tipo')?.invalid && vehiculoForm.get('tipo')?.touched" class="invalid-feedback">
+              Seleccione un tipo de vehículo.
+            </div>
+          </div>
+  
+          <!-- Campo Cantidad de Ruedas -->
+          <div class="mb-3">
+            <label for="ruedas" class="form-label">Cantidad de Ruedas</label>
+            <input type="number" id="ruedas" class="form-control" formControlName="cantidadRuedas" placeholder="Entre 0 y 6" required>
+            <div *ngIf="vehiculoForm.get('cantidadRuedas')?.invalid && vehiculoForm.get('cantidadRuedas')?.touched" class="invalid-feedback">
+              Debe ser un valor entre 0 y 6.
+            </div>
+          </div>
+  
+          <!-- Campo Capacidad Promedio -->
+          <div class="mb-3">
+            <label for="capacidad" class="form-label">Capacidad Promedio</label>
+            <input type="number" id="capacidad" class="form-control" formControlName="capacidadPromedio" placeholder="Entre 2 y 100" required>
+            <div *ngIf="vehiculoForm.get('capacidadPromedio')?.invalid && vehiculoForm.get('capacidadPromedio')?.touched" class="invalid-feedback">
+              Capacidad entre 2 y 100 pasajeros.
+            </div>
+          </div>
+  
+          <!-- Botón para Guardar -->
+          <button type="submit" class="w-100 btn btn-lg btn-outline-primary" [disabled]="vehiculoForm.invalid">
+            Guardar Vehículo
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

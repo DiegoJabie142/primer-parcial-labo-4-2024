@@ -1,23 +1,38 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navegación</a>
+    <a class="navbar-brand" (click)="redirect('/home')">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/home">Home <span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/AltaChofer">Alta Chofer</a>
+
+        @if(logged){
+          <li class="nav-item">
+            <a class="nav-link" (click)="redirect('/AltaChofer')">Alta Chofer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Choferes">Choferes</a>
+              <a class="nav-link" (click)="redirect('/Choferes')">Choferes</a>
           </li>
+
+          @if(admin){
+            <li class="nav-item">
+              <a class="nav-link" (click)="redirect('/vehiculos')">Vehiculos</a>
+          </li>
+          }
+        }@else {
+          <li class="nav-item">
+            <a class="nav-link" (click)="redirect('/Login')">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="redirect('/Register')">Register</a>
+          </li>
+        }
       </ul>
     </div>
+
+    @if(logged){
+      <button class="logout-button" (click)="onLogout()">Cerrar sesión</button>
+    }
+
   </nav>

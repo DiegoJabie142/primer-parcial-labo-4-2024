@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent {
   }
 
    // Método para registrar un usuario
-   onSubmit() {
+  // Método para registrar un usuario
+  onSubmit(): void {
     if (this.registerForm.valid) {
       const { email, password } = this.registerForm.value;
 
@@ -29,11 +31,27 @@ export class RegisterComponent {
         .then((userCredential) => {
           console.log('User registered successfully:', userCredential);
 
-          // Redirigir al usuario a una página diferente después del registro exitoso
-          this.router.navigate(['/Actores']);
+          // Mostrar un Swal de éxito
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'El usuario se registró correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            // Redirigir al usuario a la página de "Aceptar términos" después de aceptar el mensaje
+            this.router.navigate(['/terminos-condiciones']);
+          });
         })
         .catch((error) => {
           console.error('Error registering user:', error);
+
+          // Mostrar un Swal de error
+          Swal.fire({
+            title: 'Error',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo'
+          });
         });
     }
   }

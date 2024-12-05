@@ -1,0 +1,20 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation p-4 border rounded shadow-sm" novalidate style="position: relative; top: -200px">
+    <h2 class="text-center mb-4">Aceptar Términos y Condiciones</h2>
+
+    <div class="form-group mb-3">
+      <label for="edad" class="form-label">Edad</label>
+      <input type="number" id="edad" formControlName="edad" class="form-control" placeholder="Ingrese una edad entre 18 y 65 años." required>
+      <div *ngIf="form.get('edad')?.invalid && form.get('edad')?.touched" class="invalid-feedback">
+        La edad debe ser entre 18 y 65 años.
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input type="checkbox" id="terms" formControlName="terms" class="form-check-input">
+      <label class="form-check-label" for="terms">Aceptar términos y condiciones</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid">Ir al Home</button>
+  </form>
+</div>

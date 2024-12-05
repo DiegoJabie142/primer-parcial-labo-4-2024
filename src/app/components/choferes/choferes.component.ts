@@ -9,7 +9,7 @@ import { DetallePaisComponent } from "../choferes/detalle-pais/detalle-pais.comp
 @Component({
   selector: 'app-choferes',
   standalone: true,
-  imports: [NavComponent, ListadoChoferesComponent, DetalleChoferComponent, DetallePaisComponent],
+  imports: [ListadoChoferesComponent, DetalleChoferComponent, DetallePaisComponent],
   templateUrl: './choferes.component.html',
   styleUrl: './choferes.component.css'
 })

@@ -1,0 +1,32 @@
+/* Estilos personalizados para centrar el formulario */
+.container {
+    min-height: 90vh;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary {
+    font-weight: bold;
+    padding: 10px;
+  }
+  
+  .invalid-feedback {
+    font-size: 0.875rem;
+    color: red;
+  }
+  
+  /* Añadir un borde redondeado al formulario */
+  form {
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  h2 {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  

@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
+import { authGuard } from './guards/auth.guard';
+import { noAuthGuard } from './guards/no-auth.guard';
+import { adminGuard } from './guards/admin.guard';
+import { canDeactivateGuard } from './guards/can-deactivate.guard';
 
 export const routes: Routes = [
     {
@@ -7,40 +10,27 @@ export const routes: Routes = [
         redirectTo: '/home',
         pathMatch: 'full' // Esto asegura que se redirija si el path está completamente vacío
     },
+        
     {
-    path:'AltaChofer', loadComponent:()=>
-    import('./components/alta-chofer/alta-chofer.component').then((m)=>m.AltaChoferComponent),
-    canActivate: [authGuard]
+        path:'terminos-condiciones', loadComponent:()=>
+        import('./components/acetar-terminos/acetar-terminos.component').then((m)=>m.AcetarTerminosComponent),
+        canDeactivate: [canDeactivateGuard]
     },
     {
-    path:'AltaPelicula', loadComponent:()=>
-    import('./components/alta-pelicula/alta-pelicula.component').then((m)=>m.AltaPeliculaComponent)
-    },
-    {
-        path:'Peliculas', loadComponent:()=>
-        import('./components/peliculas/peliculas.component').then((m)=>m.PeliculasComponent)
-    }
-    ,/* 
-    {
-        path:'Actores', 
-        loadComponent:()=>
-        import('./components/actores/actores.component').then((m)=>m.ActoresComponent),
+        path:'AltaChofer', loadComponent:()=>
+        import('./components/alta-chofer/alta-chofer.component').then((m)=>m.AltaChoferComponent),
         canActivate: [authGuard]
-    },
-    */
-    {
-        path:'Actores', 
-        loadComponent:()=>
-        import('./components/actores/actores.component').then((m)=>m.ActoresComponent),
     },
     {
         path:'Login', loadComponent:()=>
         import('./auth/login/login.component').then((m)=>m.LoginComponent),
+        canActivate: [noAuthGuard],
     }
     ,
     {
         path:'Register', loadComponent:()=>
         import('./auth/register/register.component').then((m)=>m.RegisterComponent),
+        canActivate: [noAuthGuard],
     },
     {
         path:'home', loadComponent:()=>
@@ -50,6 +40,11 @@ export const routes: Routes = [
         path:'Choferes', loadComponent:()=>
         import('./components/choferes/choferes.component').then((m)=>m.ChoferesComponent),
         canActivate: [authGuard]
+    },
+    {
+        path:'vehiculos', loadComponent:()=>
+        import('./components/vehiculos/vehiculos.component').then((m)=>m.VehiculosComponent),
+        canActivate: [adminGuard]
     },
 
 

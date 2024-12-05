@@ -1,0 +1,29 @@
+<body>
+    
+    <div class="container py-3">
+        <app-listado-vehiculos (vehiculoSeleccionado)="editarVehiculo($event)" (vehiculoSeleccionadoEliminar)="eliminarVehiculo($event)"></app-listado-vehiculos>
+      <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <app-alta-vehiculo (vehiculoSeleccionado)="editarVehiculo($event)"></app-alta-vehiculo>
+          
+          <div *ngIf="vehiculoEnEdicion" >
+            <app-modificar-vehiculo
+            [vehiculo]="vehiculoEnEdicion"
+            (vehiculoModificado)="actualizarListado()"
+          ></app-modificar-vehiculo>
+          </div>
+
+          <div *ngIf="vehiculoAEliminar" >
+            <app-baja-vehiculo
+            [vehiculo]="vehiculoAEliminar"
+            (vehiculoModificado)="actualizarListado()"
+            (vehiculoEliminado)="actualizarListado()">
+          </app-baja-vehiculo>
+          </div>
+
+
+        </div>
+      </main>
+    </div>
+
+</body>

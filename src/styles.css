@@ -26,7 +26,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 10px 15px; /* Espaciado interno */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     position: absolute; /* Posicionamiento absoluto */
-    top: 20px; /* Espacio desde la parte superior */
+    top: 5px; /* Espacio desde la parte superior */
     right: 20px; /* Espacio desde la derecha */
     transition: background-color 0.3s; /* Transición suave para el color de fondo */
     z-index: 999;

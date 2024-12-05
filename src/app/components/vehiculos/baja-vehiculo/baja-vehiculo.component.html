@@ -1,0 +1,26 @@
+<form [formGroup]="vehiculoForm" (ngSubmit)="eliminarVehiculo()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" id="nombre" formControlName="nombre" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Tipo</label>
+      <select id="tipo" formControlName="tipo" class="form-control">
+        <option value="terrestre">Terrestre</option>
+        <option value="aereo">Aéreo</option>
+        <option value="maritimo">Marítimo</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="cantidadRuedas" class="form-label">Cantidad de Ruedas</label>
+      <input type="number" id="cantidadRuedas" formControlName="cantidadRuedas" class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label for="capacidadPromedio" class="form-label">Capacidad Promedio</label>
+      <input type="number" id="capacidadPromedio" formControlName="capacidadPromedio" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="vehiculoForm.invalid">
+      Eliminar Vehículo
+    </button>
+  </form>
+  

@@ -3,14 +3,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FirestoreService } from '../../services/firestore.service';
 import { NgFor, NgIf } from '@angular/common';
 import { TablaPaisesComponent } from './tabla-paises/tabla-paises.component';
-import { NavComponent } from "../../shared/nav/nav.component";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alta-chofer',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgFor, TablaPaisesComponent, NavComponent],
+  imports: [ReactiveFormsModule, NgIf, TablaPaisesComponent],
   templateUrl: './alta-chofer.component.html',
   styleUrl: './alta-chofer.component.css'
 })
@@ -26,13 +26,30 @@ export class AltaChoferComponent {
    // Inicializar el formulario
    this.choferForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]], // Validación solo letras
-      documento: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]], // Documento debe tener exactamente 8 caracteres
-     licencia: ['', [Validators.required, Validators.minLength(7)]], 
-     edad: ['', [Validators.required, Validators.min(1)]],
-     pais: [{ value: '', disabled: true }, Validators.required],
-     licenciaProfesional: [false] 
+      documento: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('^[0-9]+$')]], // Documento debe tener exactamente 8 números
+      licencia: ['', [Validators.required, Validators.minLength(7), Validators.pattern('^[0-9]+$')]],
+      edad: ['', [Validators.required, Validators.min(8), Validators.max(50)]],
+      pais: [{ value: '', disabled: true }, Validators.required],
+      licenciaProfesional: [false] 
    });
  }
+
+  validarSoloLetras(event: KeyboardEvent): void {
+    const charCode = event.key.charCodeAt(0);
+    const regex = /^[a-zA-Z]+$/;
+
+    if (!regex.test(event.key)) {
+      event.preventDefault(); // Evitar que se escriba el carácter
+    }
+  }
+
+  validarSoloNumeros(event: KeyboardEvent): void {
+    const regex = /^[0-9]$/; // Expresión regular para solo permitir números
+
+    if (!regex.test(event.key)) {
+      event.preventDefault(); // Evitar que se escriba el carácter si no es un número
+    }
+  }
 
 // Método que se ejecuta cuando se selecciona un país
 onCountrySelected(country: string) {
@@ -43,23 +60,45 @@ onCountrySelected(country: string) {
 
  // Método para guardar los datos del chofer y mostrarlos por consola
  guardarChofer() {
-  if (this.choferForm.valid) {
+  if (this.choferForm.valid && this.selectedCountry != '') {
     // Recoger los valores, incluyendo los campos deshabilitados
     const choferData = this.choferForm.getRawValue();
     console.log('Datos del chofer:', choferData);
-    this.firestoreService.guardarChofer(choferData);
-  } else {
-    console.log('Formulario inválido');
-    }
-  }
 
-  onLogout() {
-    this.firestoreService.logout().then(() => {
-      console.log('Sesión cerrada exitosamente.');
-      // Redirigir a la página de login
-      this.router.navigate(['/Login']);
+    this.firestoreService.guardarChofer(choferData).then(() => {
+      // Mostrar SweetAlert de éxito
+      Swal.fire({
+        title: '¡Éxito!',
+        text: 'El chofer ha sido guardado correctamente.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
+
+      // Limpiar el formulario
+      this.choferForm.reset();
     }).catch((error) => {
-      console.error('Error al cerrar sesión:', error);
+      // Mostrar SweetAlert de error
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al guardar el chofer. Inténtalo de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+
+      console.error('Error al guardar el chofer:', error);
     });
-  } 
+
+  } else {
+    // Mostrar SweetAlert para informar sobre formulario inválido
+    Swal.fire({
+      title: 'Formulario inválido',
+      text: 'Por favor, completa todos los campos requeridos antes de guardar.',
+      icon: 'warning',
+      confirmButtonText: 'Aceptar'
+    });
+
+    console.log('Formulario inválido');
+  }
+}
+
 }
